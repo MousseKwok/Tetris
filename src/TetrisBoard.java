@@ -29,19 +29,14 @@ public class TetrisBoard {
 	//Number of full lines
 	private int numLines;
 
-
-	/**
-	 * Constructor for TetrisBoard
-	 */
+	
 	public TetrisBoard() {
-		//Initialize numRows and numCols
 		this.numRows = NUM_ROWS;
 		this.numCols = NUM_COLS;
 
 		//create a board
 		blockMatrix = new boolean[numRows][numCols];
 
-		//Initialize the board
 		initBoard();
 
 		//Start game with a new piece
@@ -83,7 +78,6 @@ public class TetrisBoard {
 			}
 		}
 
-		//Check if game is over. If it's not over, then add a new piece
 		if(!gameOver()) {
 			addNewPiece();
 		}
@@ -100,11 +94,9 @@ public class TetrisBoard {
 		if(validMove(currentPiece, currentPiece.getPieceRotation(), currentPieceGridPosition[0], currentPieceGridPosition[1] - 1)) {
 			currentPieceGridPosition[1] -= 1;
 
-			//Set the moveLeft to be true
 			return true;
 		}
-
-		//If not valid, set it to false
+		
 		return false;
 	}
 
@@ -117,11 +109,9 @@ public class TetrisBoard {
 		if(validMove(currentPiece, currentPiece.getPieceRotation(), currentPieceGridPosition[0], currentPieceGridPosition[1] + 1)) {
 			currentPieceGridPosition[1] += 1;
 
-			//Set moveRight to be true
 			return true;
 		}
 
-		//If not valid, set it to false
 		return false;
 	}
 
@@ -130,15 +120,14 @@ public class TetrisBoard {
 	 * @return true if it is a valid move and false otherwise
 	 */
 	public boolean moveDown() {
-
 		//If it is valid, move one block down
 		if(!gameOver() && validMove(currentPiece, currentPiece.getPieceRotation(), currentPieceGridPosition[0] + 1, currentPieceGridPosition[1])) {
 			currentPieceGridPosition[0] += 1;
-			//Set the moveDown to be true
+			
 			return true;
 		}
 
-		//If not valid, remove line and update the number of lines cleared, also set it to be false
+		//If not valid, remove line and update the number of lines cleared
 		else {
 			numberOfFormedLines();
 			return false;
@@ -156,12 +145,9 @@ public class TetrisBoard {
 
 		//Check if it's a valid move
 		if(validMove(currentPiece, currentPiece.getPieceRotation(), currentPieceGridPosition[0], currentPieceGridPosition[1])) {
-
-			//Return true if it is
 			return true;
 		}
 		else {
-			//If not valid, undo the move and return false
 			currentPiece.rotateCCW();
 			return false;
 		}
@@ -178,11 +164,9 @@ public class TetrisBoard {
 		//Check if the move is valid
 		if(validMove(currentPiece, currentPiece.getPieceRotation(), currentPieceGridPosition[0], currentPieceGridPosition[1])) {
 
-			//Return true if it is 
 			return true;
 		}
 
-		//If not valid, undo the move and return false
 		else {
 			currentPiece.rotateCW();
 			return false;
@@ -202,17 +186,16 @@ public class TetrisBoard {
 		//Loop through piece grid
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				//If the block is filled
+				//Check if the block is filled
 				if(piece.isFilled(rot, i, j)) {
 					//Check for right, left, bottom blocks
 					if(blockMatrix[gridRow + i][gridCol + j] || blockMatrix[gridRow][gridCol + j]) {
-						//If there is a block on the right, left, or bottom of the current bottom, return true
 						return true;
 					}
 				}
 			}
 		}
-		//If there's no collision, return false
+		//No collision
 		return false;
 	}
 
@@ -228,17 +211,15 @@ public class TetrisBoard {
 		//Loop through piece grid
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				//If the block is filled
+				//Check if the block is filled
 				if(piece.isFilled(rot, i, j)) {
 					//Check right bound and left bound and bottom bottom
 					if(gridCol + j < 0 || gridCol + j > numCols - 1 || gridRow + i > numRows - 1) {
-						//Return true if it tetris piece touches the bound
 						return true;
 					}
 				}
 			}
 		}
-		//Return false otherwise
 		return false;
 	}
 
@@ -249,12 +230,11 @@ public class TetrisBoard {
 	public boolean gameOver() {
 		//Check the top row of the board 
 		for(int col = 0; col < numCols; col++) {
-			//If there is a block in any position of the first row, return true
+			//Check if there is a block in any position of the first row
 			if(blockMatrix[0][col]) {
 				return true;
 			}
 		}
-		//Return false if there is no block
 		return false;
 	}
 	/**
@@ -266,11 +246,10 @@ public class TetrisBoard {
 	 * @return true if the move is a valid one
 	 */
 	private boolean validMove(TetrisPiece piece, int rot, int gridRow, int gridCol) {
-		//If we didn't detect bounds or detect collision then it's a valid move
+		//If no collisions and bounds have been detected, then it's a valid move
 		if(!detectOutOfBounds(piece, rot, gridRow, gridCol) && !detectCollision(piece, rot, gridRow, gridCol)) {
 			return true;
 		}
-		//Otherwise it's not a valid move and return false
 		return false;
 	}
 
@@ -326,10 +305,9 @@ public class TetrisBoard {
 	 * @return the number of full lines
 	 */
 	public int numberOfFormedLines() {
-		//Loop through rows of the board
 		for(int row = 0; row < numRows; row++) {
 
-			//If the row we are checking is full
+			//Check if the row is full
 			if(fullLine(row)) {
 
 				//Update the number of full lines
@@ -339,7 +317,6 @@ public class TetrisBoard {
 				removeLine(row);
 			}
 		}
-		//Return the number of full lines
 		return numLines;
 	}
 
@@ -349,15 +326,13 @@ public class TetrisBoard {
 	 * @return true if there's full line and false otherwise
 	 */
 	private boolean fullLine(int row) {
-		//Loop through columns of the board
 		for(int i = 0; i < numCols; i++) {
 
-			//If the block we are checking is not occupied return false
+			//Check if the block is occupied
 			if(!blockMatrix[row][i]) {
 				return false;
 			}
 		}
-		//If all blocks in the a row are occupied return true
 		return true;
 	}
 
@@ -366,7 +341,6 @@ public class TetrisBoard {
 	 * @param row board row
 	 */
 	private void removeLine(int row) {
-		//Loop through the current row
 		for(int i = row; i > 0; i--) {
 
 			//for each column
