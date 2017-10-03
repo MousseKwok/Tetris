@@ -1,2 +1,2 @@
 # Tetris
-Tetris game developed in Java
+Tetris game developed by Java
