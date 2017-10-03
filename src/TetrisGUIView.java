@@ -9,7 +9,7 @@ import java.awt.Graphics;
  */
 public class TetrisGUIView extends JComponent{
 
-	//Instance of TetrisBoard
+	//Instance of TetrisBoard class 
 	private TetrisBoard board;
 
 	/**
@@ -18,7 +18,6 @@ public class TetrisGUIView extends JComponent{
 	 */
 	public TetrisGUIView(TetrisBoard board) {
 		this.board = board;
-		//If true the component paints every pixel within its bounds
 		this.setOpaque(true);
 
 	}
@@ -46,7 +45,6 @@ public class TetrisGUIView extends JComponent{
 	 * @param blockSize for size of each block
 	 */
 	private void paintBoardOutline(Graphics g, int blockSize) {
-		//Get the size of the block
 		blockSize = computeBlockSize();
 		
 		//Draw the board outline 
@@ -62,14 +60,11 @@ public class TetrisGUIView extends JComponent{
 		//Get the board
 		boolean[][] gridArray = board.getBlockMatrix();
 		
-		//Get the size of block
 		blockSize = computeBlockSize();
 		
-		//Loop through the whole board
 		for(int i = 0; i < gridArray.length; i++) {
 			for(int j = 0; j < gridArray[i].length; j++) {
 				
-				//If the block is occupied
 				if(board.hasBlock(i, j)) {
 					
 					//Set the color of the block and draw the block
