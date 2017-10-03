@@ -19,7 +19,8 @@ public class TetrisGUIGame {
 
 	//Number that represents counterclockwise rotation
 	public static final int CCW = 5;
-    public boolean isEndRound;
+	
+        public boolean isEndRound;
 
 	//Instance of TetrisBoard
 	private TetrisBoard tetrisBoard;
@@ -28,7 +29,6 @@ public class TetrisGUIGame {
 	 * Constructor for TetrisGame
 	 */
 	public TetrisGUIGame() {
-		//Instantiate tetrisBoard
 		tetrisBoard = new TetrisBoard();
 	}
 
