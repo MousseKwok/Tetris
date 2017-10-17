@@ -68,9 +68,9 @@ public class TetrisPiece {
 	 * @return true if it is filled
 	 */
 	public boolean isFilled(int rot, int row, int col) {
-        if(filledSquares[rot][row][col]) {
-		return true;
-		}
+		if(filledSquares[rot][row][col]) {
+			return true;
+	        }
 		return false;
 	}
 	
